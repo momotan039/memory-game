@@ -45,4 +45,14 @@ static buildCard(image, colorMode = false, color) {
     return card
 }
 
+static winnerPlayer(){
+    const audio=new Audio('./sounds/next-level.mp3')
+    audio.play()
+    setTimeout(() => {
+            const result=confirm("Game Finshed,would you like to play again") 
+        if(result)
+        location.reload()
+    }, 500);   
+}
+
 }

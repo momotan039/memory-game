@@ -45,15 +45,17 @@ function handelFlipCards() {
         images.splice(images.indexOf(img),1)
         //check winner
         if(images.length==0)
-        alert("Finish Game")
+        {
+            Game.winnerPlayer()
+        }
 
         selectedCards = []
     }
 }
 
-async function generateImagesCards(count_cards) {
+async function generateImagesCards() {
     const myKey = 'TQpNsOrNXPh3WAJ1m6AHOgnbHKQyd-K6p0j_AXkjmNQ'
-    const url = `https://api.unsplash.com/photos/random?count=${count_cards/2}&client_id=${myKey}`
+    const url = `https://api.unsplash.com/photos/random?count=${Game.count_cards/2}&client_id=${myKey}`
     return fetch(url)
     .then(res =>res.json())
     .then(res=>{
@@ -67,22 +69,23 @@ async function generateImagesCards(count_cards) {
     .catch(err=>Promise.reject(err))
 }
 
-export async function buildCardsByImages(countCards,buildCard) {
+export async function buildCardsByImages() {
     const cards = document.querySelector('.cards')
     try {
-        images = await generateImagesCards(countCards).then(res => res)
+        images = await generateImagesCards().then(res => res)
     } catch (error) {
         return Promise.reject(error)
     }
 
     images.forEach(image => {
-        cards.appendChild(buildCard(image))
+        cards.appendChild(Game.buildCard(image))
     })
+    debugger
     //shuffel images
-    images = images.sort((a, b) => (Math.random()) - (Math.random()))
+   images.sort(() => Math.random() - 0.5);
     //append it again
     images.forEach(image => {
-        cards.appendChild(buildCard(image))
+        cards.appendChild(Game.buildCard(image))
     })
     handelFlipCards()
 }

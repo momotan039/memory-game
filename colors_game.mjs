@@ -1,3 +1,5 @@
+import Game from './Game.mjs';
+
 let colors = []
 let selectedCards = []
 let flipedCards = []
@@ -14,6 +16,7 @@ let flipedCards = []
             if (card.classList.contains('flip'))
                 return
 
+            Game.playCardSound()
             card.classList.add('flip')
             const color = card.querySelector('img').style.background
             selectedCards.push({
@@ -38,12 +41,14 @@ let flipedCards = []
     } else {
         flipedCards.push(selectedCards[0])
         flipedCards.push(selectedCards[1])
-
+        Game.playFoundOne()
         const color=selectedCards[0].color
         colors.splice(color.indexOf(color),1)
         //check winner
         if(colors.length==0)
-        alert("Finish Game")
+        {
+           Game.winnerPlayer()
+        }
 
         selectedCards = []
     }
@@ -53,17 +58,17 @@ export function buildCardsByColors() {
     const cards = document.querySelector('.cards')
     generateRandomColors()
     colors.forEach(c=>{
-        cards.appendChild(buildCard(null,true,c))
+        cards.appendChild(Game.buildCard(null,true,c))
     })
-    colors = colors.sort((a, b) => (Math.random()) - (Math.random()))
+    colors = colors.sort(() => Math.random() - 0.5);
     colors.forEach(c=>{
-        cards.appendChild(buildCard(null,true,c))
+        cards.appendChild(Game.buildCard(null,true,c))
     })
     handelFlipCards()
 }
 
- function generateRandomColors() {
-    for (let i = 0; i < count_cards/2; i++) {
+ function generateRandomColors() {//0.1-0.9
+    for (let i = 0; i < Game.count_cards/2; i++) {
         const color=Math.floor(Math.random()*16777215).toString(16);
         colors.push(`#${color}`)
     }
