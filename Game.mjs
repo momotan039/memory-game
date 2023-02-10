@@ -1,8 +1,8 @@
 export default  class Game{
-static count_cards = 4
+static count_cards = 10
 static timeOut=2
 static downTimeIntervalId=-1
-static attempts=5
+static attempts=4
 static buildCard(image, colorMode = false, color) {
     const card = document.createElement('div')
     card.classList.add('card')
