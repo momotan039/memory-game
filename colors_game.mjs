@@ -37,6 +37,7 @@ let flipedCards = []
             selectedCards[0].card.classList.remove('flip')
             selectedCards[1].card.classList.remove('flip')
             selectedCards = []
+            Game.subAttempts()
         }, 700);
     } else {
         flipedCards.push(selectedCards[0])

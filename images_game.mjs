@@ -36,6 +36,7 @@ function handelFlipCards() {
             selectedCards[0].card.classList.remove('flip')
             selectedCards[1].card.classList.remove('flip')
             selectedCards = []
+            Game.subAttempts()
         }, 700);
     } else {
         flipedCards.push(selectedCards[0])
@@ -59,7 +60,6 @@ async function generateImagesCards() {
     return fetch(url)
     .then(res =>res.json())
     .then(res=>{
-            debugger
             const result = []
             res.forEach(image => {
                 result.push(image.urls.regular)
@@ -76,17 +76,17 @@ export async function buildCardsByImages() {
     } catch (error) {
         return Promise.reject(error)
     }
-
+debugger
     images.forEach(image => {
         cards.appendChild(Game.buildCard(image))
     })
-    debugger
     //shuffel images
    images.sort(() => Math.random() - 0.5);
     //append it again
     images.forEach(image => {
         cards.appendChild(Game.buildCard(image))
     })
+    debugger
     handelFlipCards()
 }
 

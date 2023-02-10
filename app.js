@@ -11,6 +11,8 @@ async function startGame() {
         alert(err)
         ColorsGame.buildCardsByColors()
     }
+    Game.StartDownTime()
 }
 
-// startGame()
+startGame()
+
