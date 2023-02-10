@@ -5,6 +5,7 @@ import { ImagesGame } from "./images_game.mjs"
 
 
 async function startGame() {
+    
     try {
         await ImagesGame.buildCardsByImages()
     } catch (err) {
